@@ -1,0 +1,10 @@
+<h1>Parent</h1>
+
+<div>
+    <input type="text" placeholder="enter parent data" #refVar>
+
+    <button (click)="sendParentData(refVar.value)">send</button>
+</div>
+
+
+<app-child [childData]="parentData"></app-child>
