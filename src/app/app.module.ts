@@ -1,20 +1,37 @@
-import { NgModule } from '@angular/core';
+import { makeStateKey, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ParentComponent } from './parent/parent.component';
-import { ChildComponent } from './child/child.component';
+import { StudentComponent } from './student/student.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { StudentpopupComponent } from './studentpopup/studentpopup.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ParentComponent,
-    ChildComponent
+    StudentComponent,
+    StudentpopupComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    MatTableModule,
+    MatButtonModule,
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatIconButton,
+    MatIconModule
+    
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
