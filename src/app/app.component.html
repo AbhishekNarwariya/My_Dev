@@ -1,3 +1,13 @@
-<h1>Welcome to App!</h1>
-<button (click)="goToDashboard()">Open Dashboard</button>
-<!-- <router-outlet></router-outlet> -->
+<div class="app-container">
+  <h1>Welcome To Sahosoft Solutions !!</h1>
+
+  <nav class="nav-bar">
+    <a routerLink="home" routerLinkActive="active-link">Home</a> |
+    <a routerLink="company" routerLinkActive="active-link">Company</a> |
+    <a routerLink="person" routerLinkActive="active-link">Person</a>
+  </nav>
+
+  <hr />
+
+  <router-outlet></router-outlet>
+</div>
