@@ -16,4 +16,9 @@ import { CompanylistComponent } from './companylist/companylist.component';
     CompanyRoutingModule
   ]
 })
-export class CompanyModule { }
+export class CompanyModule {
+  constructor(){
+    console.log("hello company");
+    
+  }
+ }

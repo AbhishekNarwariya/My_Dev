@@ -14,8 +14,6 @@ import { PersonModule } from './person/person.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CompanyModule,
-    PersonModule
   ],
 
   providers: [],
