@@ -14,10 +14,12 @@ export class DataService {
 
   constructor(private http: HttpClient) {}
 
+  // Get Users
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.userUrl);
   }
 
+  // Get Posts
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.postUrl);
   }

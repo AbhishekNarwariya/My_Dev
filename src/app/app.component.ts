@@ -5,7 +5,7 @@ import {  HttpClientModule } from '@angular/common/http';
 import { User } from './models/user.modal';
 import { Post } from './models/post.modal';
 import { DataService } from './services/data.service';
-import { BehaviorSubject, combineLatest, forkJoin, map } from 'rxjs';
+import { BehaviorSubject, combineLatest, concat, forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -21,50 +21,45 @@ import { BehaviorSubject, combineLatest, forkJoin, map } from 'rxjs';
 })
 export class AppComponent {
   title = 'new_code'; 
+  
   users: User[] = [];
   posts: Post[] = [];
-
-  filteredPosts: Post[] = [];
-
-  selectedUserId$ = new BehaviorSubject<number | null>(null);
+  loading: boolean = false;
+  error: string = '';
 
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
-    // Load users and posts first
-    combineLatest([
-      this.dataService.getUsers(),
-      this.dataService.getPosts()
-    ]).subscribe(([users, posts]) => {
-      this.users = users;
-      this.posts = posts;
-    });
+    this.loadDataSequentially();
+  }
 
-    // Update filtered posts whenever user selection changes
-    combineLatest([
-      this.selectedUserId$,
-      this.dataService.getPosts()
-    ]).pipe(
-      map(([userId, posts]) => {
-        if (userId === null) {
-          return posts;
+  // Using concat to load users and then posts sequentially
+  loadDataSequentially(): void {
+    this.loading = true;
+    this.error = '';
+
+    const users$ = this.dataService.getUsers();
+    const posts$ = this.dataService.getPosts();
+
+    concat(users$, posts$).subscribe({
+      next: (data) => {
+        // Check if data is User[]
+        if ((data as User[])[0]?.name) {
+          this.users = data as User[];  // First result is users
         }
-        return posts.filter(post => post.userId === userId);
-      })
-    ).subscribe(filtered => {
-      this.filteredPosts = filtered;
+        // Check if data is Post[]
+        else if ((data as Post[])[0]?.title) {
+          this.posts = data as Post[];  // Second result is posts
+        }
+      },
+      error: (err) => {
+        this.error = 'Failed to load data';
+        console.error(err);
+        this.loading = false;
+      },
+      complete: () => {
+        this.loading = false;
+      }
     });
   }
-
-  onUserChange(event: Event): void {
-    // Type casting the event target to HTMLSelectElement
-    const selectElement = event.target as HTMLSelectElement;
-    const userId = selectElement.value ? parseInt(selectElement.value, 10) : null;
-    
-    // Now we can use the selected userId
-    this.selectedUserId$.next(userId);
-  }
-  
-
-
 }
