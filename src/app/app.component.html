@@ -1,18 +1,21 @@
-<div *ngIf="loading">Loading data...</div>
-<div *ngIf="error">{{ error }}</div>
-
-<div *ngIf="!loading && !error">
-  <h2>Users</h2>
-  <ul>
-    <li *ngFor="let user of users">
-      {{ user.name }} ({{ user.email }})
-    </li>
-  </ul>
-
-  <h2>Posts</h2>
-  <ul>
-    <li *ngFor="let post of posts">
-      <strong>{{ post.title }}</strong> - {{ post.body }}
-    </li>
-  </ul>
-</div>
+<div>
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery" 
+      (ngModelChange)="onSearch($event)" 
+      placeholder="Search posts...">
+    
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    
+    <ul *ngIf="results$ | async as results; else noResults">
+      <li *ngFor="let result of results">
+        <strong>{{ result.title }}</strong><br />
+        {{ result.body }}
+      </li>
+    </ul>
+  
+    <ng-template #noResults>
+      <p>No results found.</p>
+    </ng-template>
+  </div>
+  

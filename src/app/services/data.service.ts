@@ -9,18 +9,12 @@ import { Post } from '../models/post.modal';
 })
 export class DataService {
 
-  private userUrl = 'https://jsonplaceholder.typicode.com/users';
-  private postUrl = 'https://jsonplaceholder.typicode.com/posts';
+  private apiUrl = 'https://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: HttpClient) {}
 
-  // Get Users
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.userUrl);
-  }
-
-  // Get Posts
-  getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.postUrl);
+  // Simulating a search query with the API
+  searchPosts(query: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}?q=${query}`);
   }
 }

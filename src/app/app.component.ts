@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {  HttpClientModule } from '@angular/common/http';
 import { User } from './models/user.modal';
 import { Post } from './models/post.modal';
 import { DataService } from './services/data.service';
-import { BehaviorSubject, combineLatest, concat, forkJoin, map } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, concat, debounceTime, distinctUntilChanged, forkJoin, map, Observable, Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
     
 ],
   templateUrl: './app.component.html',
@@ -22,44 +23,37 @@ import { BehaviorSubject, combineLatest, concat, forkJoin, map } from 'rxjs';
 export class AppComponent {
   title = 'new_code'; 
   
-  users: User[] = [];
-  posts: Post[] = [];
-  loading: boolean = false;
-  error: string = '';
+  searchQuery: string = '';
+  results$: Observable<any[]> = new Observable();
+  errorMessage: string = '';
 
-  constructor(private dataService: DataService) {}
+  // Subject to emit search query changes
+  private searchSubject: Subject<string> = new Subject();
+
+  constructor(private searchService: DataService) {}
 
   ngOnInit(): void {
-    this.loadDataSequentially();
+    // Listen to searchSubject and perform search with switchMap
+    this.results$ = this.searchSubject.pipe(
+      debounceTime(300), // Wait for user to stop typing
+      distinctUntilChanged(), // Only emit if query changes
+      switchMap((query) => {
+        if (!query.trim()) {
+          return []; // Return empty array if query is empty
+        }
+        return this.searchService.searchPosts(query).pipe(
+          catchError((error) => {
+            this.errorMessage = 'An error occurred while searching';
+            return [];
+          })
+        );
+      })
+    );
   }
 
-  // Using concat to load users and then posts sequentially
-  loadDataSequentially(): void {
-    this.loading = true;
-    this.error = '';
-
-    const users$ = this.dataService.getUsers();
-    const posts$ = this.dataService.getPosts();
-
-    concat(users$, posts$).subscribe({
-      next: (data) => {
-        // Check if data is User[]
-        if ((data as User[])[0]?.name) {
-          this.users = data as User[];  // First result is users
-        }
-        // Check if data is Post[]
-        else if ((data as Post[])[0]?.title) {
-          this.posts = data as Post[];  // Second result is posts
-        }
-      },
-      error: (err) => {
-        this.error = 'Failed to load data';
-        console.error(err);
-        this.loading = false;
-      },
-      complete: () => {
-        this.loading = false;
-      }
-    });
+  onSearch(query: string): void {
+    // Emit search query to the searchSubject
+    this.searchSubject.next(query);
   }
+
 }
