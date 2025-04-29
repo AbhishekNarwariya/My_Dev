@@ -22,38 +22,14 @@ import { BehaviorSubject, catchError, combineLatest, concat, debounceTime, disti
 })
 export class AppComponent {
   title = 'new_code'; 
-  
-  searchQuery: string = '';
-  results$: Observable<any[]> = new Observable();
-  errorMessage: string = '';
+  users = [
+    { id: 1, name: 'Alice' },
+    { id: 2, name: 'Bob' },
+    { id: 3, name: 'Charlie' }
+  ];
 
-  // Subject to emit search query changes
-  private searchSubject: Subject<string> = new Subject();
-
-  constructor(private searchService: DataService) {}
-
-  ngOnInit(): void {
-    // Listen to searchSubject and perform search with switchMap
-    this.results$ = this.searchSubject.pipe(
-      debounceTime(300), // Wait for user to stop typing
-      distinctUntilChanged(), // Only emit if query changes
-      switchMap((query) => {
-        if (!query.trim()) {
-          return []; // Return empty array if query is empty
-        }
-        return this.searchService.searchPosts(query).pipe(
-          catchError((error) => {
-            this.errorMessage = 'An error occurred while searching';
-            return [];
-          })
-        );
-      })
-    );
-  }
-
-  onSearch(query: string): void {
-    // Emit search query to the searchSubject
-    this.searchSubject.next(query);
+  trackById(user: any){
+    return user.id;
   }
 
 }
