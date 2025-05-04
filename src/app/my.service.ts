@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class MyService {
 
-  private apiUrl = 'https://jsonplaceholder.typicode.com/users';
-
   constructor(private http: HttpClient) {}
 
-  getUsers():Observable<any[]>{
-    return this.http.get<any[]>(this.apiUrl)
+  // Fetch all users for client-side filtering
+  searchUsers(): Observable<any[]> {
+    return this.http.get<any[]>('https://jsonplaceholder.typicode.com/users');
   }
+  
 }

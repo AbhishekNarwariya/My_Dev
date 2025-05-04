@@ -1,6 +1,11 @@
-<h1>hello abhishek</h1>
+<h1>Hello Abhishek</h1>
 
-<h2>User Names</h2>
-<ul>
-  <li *ngFor="let name of users">{{ name }}</li>
+<div>
+  <input [formControl]="searchControl" placeholder="Search users" />
+</div>
+
+<ul *ngIf="results.length > 0">
+  <li *ngFor="let user of results">{{ user.name }}</li>
 </ul>
+
+<p *ngIf="results.length === 0">No results found.</p>
