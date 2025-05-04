@@ -1,19 +1,6 @@
-<div>
-    <form #refVar="ngForm" (ngSubmit)="Submit(refVar)">
-        <div>
-            <input type="text" placeholder="enter the name" name="name" ngModel>
-        </div>
+<h1>hello abhishek</h1>
 
-        <div>
-            <input type="text" placeholder="enter the emai" name="email" ngModel>
-        </div>
-
-        <div>
-            <input type="text" placeholder="enter the password" name="password" ngModel>
-        </div>
-
-        <div>
-            <input type="submit" value="Submit">
-        </div>
-    </form>
-</div>
+<h2>User Names</h2>
+<ul>
+  <li *ngFor="let name of users">{{ name }}</li>
+</ul>
