@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogboxComponent } from './dialogbox.component';
+import { StudentdetailsComponent } from './studentdetails.component';
 
-describe('DialogboxComponent', () => {
-  let component: DialogboxComponent;
-  let fixture: ComponentFixture<DialogboxComponent>;
+describe('StudentdetailsComponent', () => {
+  let component: StudentdetailsComponent;
+  let fixture: ComponentFixture<StudentdetailsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DialogboxComponent]
+      declarations: [StudentdetailsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DialogboxComponent);
+    fixture = TestBed.createComponent(StudentdetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
