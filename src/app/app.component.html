@@ -1,11 +1,11 @@
-<h1>Hello Abhishek</h1>
+<div *ngIf="loading">Loading posts...</div>
 
-<div>
-  <input [formControl]="searchControl" placeholder="Search users" />
+<div *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
 </div>
 
-<ul *ngIf="results.length > 0">
-  <li *ngFor="let user of results">{{ user.name }}</li>
+<ul *ngIf="!loading && !errorMessage">
+  <li *ngFor="let post of posts">
+    {{ post.title }}
+  </li>
 </ul>
-
-<p *ngIf="results.length === 0">No results found.</p>

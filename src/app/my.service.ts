@@ -1,17 +1,32 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, delay, Observable, retry, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MyService {
+  private API_URL = 'https://jsonplaceholder.typicode.com/posts';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  // Fetch all users for client-side filtering
-  searchUsers(): Observable<any[]> {
-    return this.http.get<any[]>('https://jsonplaceholder.typicode.com/users');
+  getPosts(): Observable<any> {
+    return this.http.get(this.API_URL).pipe(
+      delay(3000),
+      retry(2),
+      catchError(this.handleError)
+    );
   }
+
+  private handleError(error:HttpErrorResponse){
+    // if (error.error instanceof ErrorEvent) {
+    //   console.error('Client-side error:', error.error.message);
+    // }else{
+    //   console.error(`Server returned code ${error.status}, body was: ${error.error}`);
+
+    // }
+    return throwError(() => new Error('Something went wrong. Please try again later.'));
+
+  };
   
 }
