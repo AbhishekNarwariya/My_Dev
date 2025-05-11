@@ -33,11 +33,14 @@ export class AppComponent {
       console.log(this.loginForm.value);
     }
     else {
-      // this.loginForm.markAllAsTouched(); // To show errors
+      console.log('Form Invalid');
     }
-
-
   }
 
-
+  prefillAll() {
+    this.loginForm.setValue({
+      name: 'admin_user',
+      password: 'admin123'
+    });
+  }
 }
