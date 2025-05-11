@@ -1,11 +1,25 @@
-<div *ngIf="loading">Loading posts...</div>
+<div class="login-container">
+  <form [formGroup]="loginForm">
+    <h2>Login</h2>
 
-<div *ngIf="errorMessage" class="error">
-  {{ errorMessage }}
+    <div class="form-group">
+      <label for="name">Username</label>
+      <input id="name" type="text" formControlName="name">
+      <div *ngIf="loginForm.controls['name'].touched && loginForm.controls['name'].invalid">
+        <small *ngIf="loginForm.controls['name'].errors?.['required']">Username is required</small>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password">
+      <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid">
+        <small *ngIf="loginForm.controls['password'].errors?.['required']">password is required</small>
+
+      </div>
+    </div>
+
+    <button type="button" (click)="Submit()">Submit</button>
+  </form>
 </div>
-
-<ul *ngIf="!loading && !errorMessage">
-  <li *ngFor="let post of posts">
-    {{ post.title }}
-  </li>
-</ul>

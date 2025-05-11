@@ -2,41 +2,42 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MyService } from './my.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; // 👈 Import this
+
 
 @Component({
   selector: 'app-root',
   imports: [
     CommonModule,
-  
-],
+    ReactiveFormsModule
+
+
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'new_code';
-  posts: any[] = [];
-  errorMessage: string = '';
-  loading: boolean = false;
-  
-  constructor(private postService: MyService) {}
+  loginForm: FormGroup
 
-  ngOnInit(): void {
-  this.fetchPosts(); // Important
-}
-
-  fetchPosts() {
-    this.loading = true
-    this.postService.getPosts().subscribe({
-      next:(data)=>{
-        this.posts =data
-        this.loading=false
-      },
-      error:(err)=>{
-        this.errorMessage = err.message;
-        this.loading = false
-      }
-    })
+  constructor(private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      name: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
- 
- 
+
+
+  Submit() {
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
+    }
+    else {
+      // this.loginForm.markAllAsTouched(); // To show errors
+    }
+
+
+  }
+
+
 }
