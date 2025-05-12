@@ -1,26 +1,15 @@
-<div class="login-container">
-  <form [formGroup]="loginForm">
-    <h2>Login</h2>
+<select [(ngModel)]="selectedCountry" (change)="onCountryChange()">
+    <option value="">Select Country</option>
+    <option *ngFor="let c of countries" [value]="c.code">
+        {{c.name}}
+    </option>
+</select>
 
-    <div class="form-group">
-      <label for="name">Username</label>
-      <input id="name" type="text" formControlName="name">
-      <div *ngIf="loginForm.controls['name'].touched && loginForm.controls['name'].invalid">
-        <small *ngIf="loginForm.controls['name'].errors?.['required']">Username is required</small>
+<select [(ngModel)]="selectedState" [disabled]="!states.length">
+    <option value="">select states</option>
+    <option *ngFor="let s of states" [value]="s">
+        {{ s }}
+    </option>
+</select>
 
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input id="password" type="password" formControlName="password">
-      <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid">
-        <small *ngIf="loginForm.controls['password'].errors?.['required']">password is required</small>
-
-      </div>
-    </div>
-
-    <button type="button" (click)="Submit()">Submit</button>
-    <button type="button" (click)="prefillAll()">Set All Values</button>
-  </form>
-</div>
+<p>You selected: {{ selectedCountry }} - {{ selectedState }}</p>
