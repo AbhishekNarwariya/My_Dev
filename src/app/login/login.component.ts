@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,29 +10,28 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  userForm:FormGroup
 
-  loginForm: FormGroup;
-  
+  constructor(private fb:FormBuilder,private router: Router, private authService: AuthService,){
+    this.userForm = this.fb.group({
+      username:[''],
+      password:['']
+    })
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      if (email === 'admin@gmail.com' && password === 'admin123') {
-        localStorage.setItem('isLoggedIn', 'true');
-        console.log('Login successful');
-        this.router.navigate(['/studentdetails']); // ✅ Navigate here
-      } else {
-        alert('Invalid email or password');
-      }
-    } else {
-      this.loginForm.markAllAsTouched(); // show validation errors
+  userLogin(){
+    console.log(this.userForm.value);
+
+    const { username, password } = this.userForm.value;
+
+    if(this.authService.login(username, password)){
+      alert('login successfully')
+      this.router.navigate(['/dashboard'])
+    }
+
+    else{
+      alert('Invalid credential')
     }
   }
 

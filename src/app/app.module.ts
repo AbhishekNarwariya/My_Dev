@@ -3,15 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
-import { StudentdetailsComponent } from './studentdetails/studentdetails.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
+import { DashboardComponent } from './dashboard/dashboard.component'
 
 
 @NgModule({
   declarations: [
    AppComponent,
    LoginComponent,
-   StudentdetailsComponent,
+   DashboardComponent,
   ],
   imports: [
     BrowserModule,
