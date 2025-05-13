@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,12 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  private loggedIn = false;
+   private loggedIn = false;
 
   constructor() { }
 
   login(username: string, password: string): boolean {
-    if (username === 'abhi@123' && password === '123456') {
+    if (username === 'ab' && password === '12') {
       this.loggedIn = true
       return true
     }
