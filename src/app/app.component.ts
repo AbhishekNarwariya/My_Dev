@@ -1,4 +1,5 @@
 import { Component} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,13 @@ import { Component} from '@angular/core';
 })
 export class AppComponent  {
   title = 'my-angular-app';
+
+  isLoggedIn = false;
+  
+
+  toggleLogin() {
+    this.isLoggedIn = !this.isLoggedIn;
+  }
 
  
 }

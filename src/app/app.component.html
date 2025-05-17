@@ -1,1 +1,14 @@
-<router-outlet></router-outlet>
+<h2>*ngIf with else example</h2>
+ 
+<button (click)="toggleLogin()">
+  {{isLoggedIn ? 'logout':'login'}}
+</button> 
+
+ <div *ngIf="isLoggedIn; else loginTemplate">
+  <p>Welcome, you are logged in!</p>
+</div>
+
+<ng-template #loginTemplate>
+  <p>Please log in to continue.</p>
+</ng-template> 
+
