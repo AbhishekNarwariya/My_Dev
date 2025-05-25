@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ChildComponent } from './child/child.component';
 import { NumService } from './num.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { NumService } from './num.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule
     
   ],
 

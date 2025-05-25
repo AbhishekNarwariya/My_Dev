@@ -1,5 +1,7 @@
 import { Component} from '@angular/core';
 import { NumService } from './num.service';
+// import { Observable } from 'rxjs';
+import { Observable, map, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,20 +12,29 @@ import { NumService } from './num.service';
 })
 export class AppComponent  {
   title = 'my-angular-app';
+user: any;
+  posts: any[] = [];
 
-  // imageUrl = 'assets/logo.png';
-  arr = []
+  constructor(private numservice: NumService) { }
 
-  constructor(private numservice:NumService){}
-
-  ngOnInit(){
-    this.arr  = this.numservice.getData()
+  ngOnInit(): void {
+    // Directly start with first API call (no 'of' here)
+    this.numservice.getUserById(1).pipe(
+      mergeMap(User => {
+        this.user = User; // save user data
+        // return second API observable
+        return this.numservice.getPostsByUserId(User.id);
+      })
+    ).subscribe(
+      posts => {
+        this.posts = posts;
+        console.log('User:', this.user);
+        console.log('Posts:', this.posts);
+      },
+      error => {
+        console.error('Error:', error);
+      }
+    );
   }
-
-  AddData(num:any){
-    this.numservice.addnum(num)
-  }
-
-
 
 }

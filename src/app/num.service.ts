@@ -1,21 +1,24 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UrlHandlingStrategy } from '@angular/router';
+import { Observable } from 'rxjs';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
+@Injectable({
+  providedIn: 'root'
+})
 
-@Injectable()
 export class NumService {
 
-  list:number[]=[]
+ private userApi = 'https://jsonplaceholder.typicode.com/users';
+  private postsApi = 'https://jsonplaceholder.typicode.com/posts';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  addnum(num:any){
-    this.list.push(num)
+  getUserById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.userApi}/${id}`);
   }
 
-  getData(){
-    return this.list
+  getPostsByUserId(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.postsApi}?userId=${userId}`);
   }
 }

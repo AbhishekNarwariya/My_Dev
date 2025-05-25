@@ -9,16 +9,6 @@ import { NumService } from '../num.service';
   providers:[NumService]
 })
 export class ChildComponent {
-  arr = []
-  
-    constructor(private numservice:NumService){}
-  
-    ngOnInit(){
-      this.arr  = this.numservice.getData()
-    }
-  
-    AddData(num:any){
-      this.numservice.addnum(num)
-    }
+ 
 
 }

@@ -1,14 +1,17 @@
 <h1>Parent Component</h1>
 
-<input type="text" #refVar>
-<button (click)="AddData(refVar.value)">click</button>
+<div *ngIf="user">
+  <h2>{{ user.name }}'s Posts</h2>
+  <p>Email: {{ user.email }}</p>
 
-<div>
-    <ul>
-        <li *ngFor="let i of arr">
-            {{i}}
-        </li>
-    </ul>
+  <ul *ngIf="posts.length > 0; else noPosts">
+    <li *ngFor="let post of posts">
+      <strong>{{ post.title }}</strong><br />
+      {{ post.body }}
+    </li>
+  </ul>
+
+  <ng-template #noPosts>
+    <p>No posts found for this user.</p>
+  </ng-template>
 </div>
-
-<app-child></app-child>
