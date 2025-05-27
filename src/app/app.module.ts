@@ -12,7 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AdduserComponent } from './adduser/adduser.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -32,7 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    BrowserAnimationsModule
     
   ],
 

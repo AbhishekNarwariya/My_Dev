@@ -13,11 +13,19 @@ export interface User {
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'https://jsonplaceholder.typicode.com/users';
+  private apiUrl = 'http://localhost:3000/users';
 
   constructor(private http: HttpClient) {}
 
   getUsers():Observable<User[]>{
     return this.http.get<User[]>(this.apiUrl)
+  }
+
+  deleteUser(id:number):Observable<any>{
+    return this.http.delete(`${this.apiUrl}/${id}`)
+  }
+  addUser(userdata):Observable<any>{
+    return this.http.post(this.apiUrl, userdata)
+
   }
 }

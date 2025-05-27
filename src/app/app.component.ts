@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService, User } from './data.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,51 +8,68 @@ import { AdduserComponent } from './adduser/adduser.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  standalone:false,
+  standalone: false,
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent  {
+export class AppComponent {
   title = 'my-angular-app';
 
-  displayedColumns: string[] = ['id', 'name', 'email', 'phone', 'actions'];
+  displayedColumns: string[] = ['name', 'email', 'phone', 'actions'];
 
   dataSource = new MatTableDataSource<User>();
 
-  constructor(private dataservice: DataService, private dialog:MatDialog) {}
+  constructor(private dataservice: DataService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.dataservice.getUsers().subscribe(data=>{
-      this.dataSource.data = data;
-
-    })
+    this.getUser()
+   
   }
- applyFilter(event: Event) {
+  applyFilter(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
-  onAddUser(){
+  onAddUser() {
     const dialogRef = this.dialog.open(AdduserComponent, {
-      width:'400px'
+      width: '400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      console.log('User added:', result);
-      // Here you can call an API or push it to the table manually
-      // this.dataSource.data = [...this.dataSource.data, result];
-    }
-  });
+      if (result) {
+        console.log('User added:', result);
+        this.getUser()
+      }
+    });
 
   }
-    onEditUser(user: any): void {
-  // Logic to open an edit form or dialog
-  console.log('Edit user', user);
-}
+  onEditUser(user: any): void {
+    console.log('Edit user', user);
+  }
 
-onDeleteUser(user: any): void {
-  // Logic to delete the user (confirmation + API call)
-  console.log('Delete user', user);
-}
+  getUser(){
+     this.dataservice.getUsers().subscribe(data => {
+      this.dataSource.data = data;
+
+    })
+  }
+
+  onDeleteUser(user: any): void {
+    // this.dataservice.deleteUser(user.id).subscribe({
+    //   next: () => {
+    //     console.log(`User with ID ${user.id} deleted`);
+    //     this.dataSource.data = this.dataSource.data.filter((u: any) => u.id !== user.id);
+    //   },
+    //   error: (err) => console.error('Delete failed', err)
+    // });
+    this.dataservice.deleteUser(user.id).subscribe((a)=>{
+      console.log(a);
+      
+      // this.dataSource.data = this.dataSource.data.filter((u)=>u.id !== user.id)
+      this.dataservice.getUsers().subscribe(data => {
+      this.dataSource.data = data;
+
+    })
+    })
+  }
 
 }

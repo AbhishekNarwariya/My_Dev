@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-adduser',
@@ -14,7 +15,9 @@ export class AdduserComponent {
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<AdduserComponent>
+    private dialogRef: MatDialogRef<AdduserComponent>,
+    private dataserive:DataService
+
   ) {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
@@ -25,6 +28,13 @@ export class AdduserComponent {
 
    onSubmit() {
     if (this.userForm.valid) {
+      let userdata = this.userForm.value
+      console.log(userdata.value);
+
+      this.dataserive.addUser(userdata).subscribe(res=>{
+        
+      })
+
       this.dialogRef.close(this.userForm.value);
     }
   }
