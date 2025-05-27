@@ -1,40 +1,58 @@
 import { Component} from '@angular/core';
-import { NumService } from './num.service';
-// import { Observable } from 'rxjs';
-import { Observable, map, mergeMap } from 'rxjs';
+import { DataService, User } from './data.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { AdduserComponent } from './adduser/adduser.component';
+// import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone:false,
   styleUrls: ['./app.component.css'],
-  providers:[NumService]
 })
 export class AppComponent  {
   title = 'my-angular-app';
-user: any;
-  posts: any[] = [];
 
-  constructor(private numservice: NumService) { }
+  displayedColumns: string[] = ['id', 'name', 'email', 'phone', 'actions'];
+
+  dataSource = new MatTableDataSource<User>();
+
+  constructor(private dataservice: DataService, private dialog:MatDialog) {}
 
   ngOnInit(): void {
-    // Directly start with first API call (no 'of' here)
-    this.numservice.getUserById(1).pipe(
-      mergeMap(User => {
-        this.user = User; // save user data
-        // return second API observable
-        return this.numservice.getPostsByUserId(User.id);
-      })
-    ).subscribe(
-      posts => {
-        this.posts = posts;
-        console.log('User:', this.user);
-        console.log('Posts:', this.posts);
-      },
-      error => {
-        console.error('Error:', error);
-      }
-    );
+    this.dataservice.getUsers().subscribe(data=>{
+      this.dataSource.data = data;
+
+    })
   }
+ applyFilter(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = value.trim().toLowerCase();
+  }
+
+  onAddUser(){
+    const dialogRef = this.dialog.open(AdduserComponent, {
+      width:'400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      console.log('User added:', result);
+      // Here you can call an API or push it to the table manually
+      // this.dataSource.data = [...this.dataSource.data, result];
+    }
+  });
+
+  }
+    onEditUser(user: any): void {
+  // Logic to open an edit form or dialog
+  console.log('Edit user', user);
+}
+
+onDeleteUser(user: any): void {
+  // Logic to delete the user (confirmation + API call)
+  console.log('Delete user', user);
+}
 
 }
