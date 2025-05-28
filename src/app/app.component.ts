@@ -6,6 +6,13 @@ import { Component } from '@angular/core';
   standalone: false,
   styleUrl: './app.component.css'
 })
+
+
 export class AppComponent {
   title = 'angular_code_daily';
+  pdata:any = ''
+ ParentData(val:any){
+  this.pdata = val
+
+ }
 }
