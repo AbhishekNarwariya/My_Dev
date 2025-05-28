@@ -1,4 +1,10 @@
-<h1>child component</h1>
+<h1>child Data</h1>
+<h2>{{chidData}}</h2>
 
-<input type="text" placeholder="enter data" #refVar>
-<button (click)="childData(refVar.value)">SendData</button>
+<div>
+    <ul>
+        <li *ngFor="let i of chidData">
+            {{i}}
+        </li>
+    </ul>
+</div>

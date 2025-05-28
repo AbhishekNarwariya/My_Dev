@@ -7,12 +7,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
   styleUrl: './child.component.css',
 })
 export class ChildComponent {
-  @Output() cData = new EventEmitter<any>()
 
+  @Input() chidData:any
 
-
-  childData(val:any){
-    this.cData.emit(val)
-  }
+  
 
 }
