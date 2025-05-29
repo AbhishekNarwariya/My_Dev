@@ -1,6 +1,13 @@
 <h1>parent component</h1>
-<input type="text" placeholder="enter the name" #refVar>
 
-<button (click)="parentData(refVar.value)">sendData</button>
+<div>
+    <form [formGroup]="userform">
+        name: <input type="text" placeholder="enter name" formControlName="name">
+        password: <input type="text" placeholder="enter password" formControlName="password">
 
-<app-child [chidData]="pData"></app-child>
+        <button type="submit" (click)="formdata()">submit</button>
+    </form>
+</div>
+
+
+<app-child [chidData]="submittedData"></app-child>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,21 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'angular_code_daily';
 
-  pData:any[]=[]
+  userform:FormGroup
+  submittedData: any = null;
 
-  parentData(val:any){
-    this.pData.push(val)
+  constructor(private fb:FormBuilder){
+    this.userform = this.fb.group({
+      name:[''],
+      password:['']
+    })
+  }
+
+  formdata(){
+    // console.log(val);
+    this.submittedData = this.userform.value
+    console.log('Submitted Data:', this.submittedData);
+    
   }
 
 }
