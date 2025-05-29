@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ViewChild, viewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChildComponent } from './child/child.component';
 
 @Component({
   selector: 'app-root',
@@ -12,21 +13,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AppComponent {
   title = 'angular_code_daily';
 
-  userform:FormGroup
-  submittedData: any = null;
+  @ViewChild(ChildComponent) child! : ChildComponent
 
-  constructor(private fb:FormBuilder){
-    this.userform = this.fb.group({
-      name:[''],
-      password:['']
-    })
+  ngAfterViewInit() {
+     this.child.hellodost()
   }
 
-  formdata(){
-    // console.log(val);
-    this.submittedData = this.userform.value
-    console.log('Submitted Data:', this.submittedData);
-    
+  callChildMethod(){
+    this.child.hellodost()
   }
-
 }

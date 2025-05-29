@@ -9,8 +9,9 @@ import { FormGroup } from '@angular/forms';
 })
 export class ChildComponent {
 
-  @Input() chidData:any
-
-
+  hellodost(){
+    console.log("hello dost");
+    
+  }
 
 }

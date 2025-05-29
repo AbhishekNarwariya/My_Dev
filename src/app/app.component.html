@@ -1,13 +1,3 @@
 <h1>parent component</h1>
-
-<div>
-    <form [formGroup]="userform">
-        name: <input type="text" placeholder="enter name" formControlName="name">
-        password: <input type="text" placeholder="enter password" formControlName="password">
-
-        <button type="submit" (click)="formdata()">submit</button>
-    </form>
-</div>
-
-
-<app-child [chidData]="submittedData"></app-child>
+<app-child></app-child>
+<button (click)="callChildMethod()">callChild</button>
