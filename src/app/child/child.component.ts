@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-child',
@@ -8,10 +7,5 @@ import { FormGroup } from '@angular/forms';
   styleUrl: './child.component.css',
 })
 export class ChildComponent {
-
-  hellodost(){
-    console.log("hello dost");
-    
-  }
 
 }

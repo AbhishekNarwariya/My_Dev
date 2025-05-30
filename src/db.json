@@ -1,3 +1,92 @@
 {
-  "users": []
+  "users": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "username": "alicej",
+      "password": "password123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "email": "bob.smith@example.com",
+      "username": "bobsmith",
+      "password": "bobpass456",
+      "role": "user"
+    },
+    {
+      "id": 3,
+      "name": "Charlie Lee",
+      "email": "charlie.lee@example.com",
+      "username": "charliel",
+      "password": "charlie789",
+      "role": "moderator"
+    },
+    {
+      "id": "cc21",
+      "name": "abhi Smith",
+      "email": "bob.smith@example.com",
+      "username": "bobsmith",
+      "password": "bobpass456",
+      "role": "user"
+    },
+    {
+      "id": "3755",
+      "name": "abhi Smith",
+      "email": "bob.smith@example.com",
+      "username": "bobsmith",
+      "password": "bobpass456",
+      "role": "user"
+    },
+    {
+      "id": "3a9c",
+      "name": "abhi Smith",
+      "email": "bob.smith@example.com",
+      "username": "bobsmith",
+      "password": "bobpass456",
+      "role": "user"
+    },
+    {
+      "id": "2513",
+      "name": "abhi Smith",
+      "email": "bob.smith@example.com",
+      "username": "bobsmith",
+      "password": "bobpass456",
+      "role": "user"
+    },
+    {
+      "id": "b6b1",
+      "name": "abhi Smith",
+      "email": "bob.smith@example.com",
+      "username": "bobsmith",
+      "password": "bobpass456",
+      "role": "user"
+    },
+    {
+      "id": "215d",
+      "name": "abhi Smith",
+      "email": "bob.smith@example.com",
+      "username": "bobsmith",
+      "password": "bobpass456",
+      "role": "user"
+    },
+    {
+      "id": "3a3e",
+      "name": "abhi Smith",
+      "email": "bob.smith@example.com",
+      "username": "bobsmith",
+      "password": "bobpass456",
+      "role": "user"
+    },
+    {
+      "id": "2d3c",
+      "name": "abhi Smith",
+      "email": "bob.smith@example.com",
+      "username": "bobsmith",
+      "password": "bobpass456",
+      "role": "user"
+    }
+  ]
 }
