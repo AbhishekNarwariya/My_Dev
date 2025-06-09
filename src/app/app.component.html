@@ -1,4 +1,41 @@
-<h1>hello app</h1>
-<div>
-    {{2 | square}}
-</div>
+<h1>hello abhishek</h1>
+
+<button (click)="openAddUserPopup()" style="margin-bottom: 16px;">Add User</button>
+
+<input
+  type="text"
+  placeholder="Search users..."
+  [(ngModel)]="searchTerm"
+  (ngModelChange)="onSearchChange($event)"
+  style="margin-bottom: 18px; padding: 8px 14px; border-radius: 6px; border: 1.5px solid #bdbdbd; width: 320px; font-size: 1rem;"
+/>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+  </ng-container>
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef>Username</th>
+    <td mat-cell *matCellDef="let user">{{ user.username }}</td>
+  </ng-container>
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef>Role</th>
+    <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef>Action</th>
+    <td mat-cell *matCellDef="let user">
+      <button mat-button color="primary" (click)="editUser(user)">Edit</button>
+      <button mat-button color="warn" (click)="deleteUser(user)">Delete</button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['name', 'email', 'username', 'role', 'action']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['name', 'email', 'username', 'role', 'action'];"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[10, 20, 50]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+

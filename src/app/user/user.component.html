@@ -1,0 +1,41 @@
+<form [formGroup]="userForm" (ngSubmit)="addUser()" style="margin-bottom: 16px; max-width: 400px; padding: 20px; border: 1px solid #ccc; border-radius: 12px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); background-color: #f9f9f9;">
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <label style="font-weight: 600;">
+      Name:
+      <input type="text" formControlName="name" required style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; width: 100%;" />
+    </label>
+    <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched" style="color: red; font-size: 12px;">
+      Name is required
+    </div>
+
+    <label style="font-weight: 600;">
+      Email:
+      <input type="email" formControlName="email" required style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; width: 100%;" />
+    </label>
+    <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" style="color: red; font-size: 12px;">
+      <span *ngIf="userForm.get('email')?.errors?.['required']">Email is required</span>
+      <span *ngIf="userForm.get('email')?.errors?.['email']">Invalid email</span>
+    </div>
+
+    <label style="font-weight: 600;">
+      Username:
+      <input type="text" formControlName="username" required style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; width: 100%;" />
+    </label>
+    <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched" style="color: red; font-size: 12px;">
+      Username is required
+    </div>
+
+    <label style="font-weight: 600;">
+      Role:
+      <input type="text" formControlName="role" required style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; width: 100%;" />
+    </label>
+    <div *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched" style="color: red; font-size: 12px;">
+      Role is required
+    </div>
+
+    <button type="submit" [disabled]="userForm.invalid"
+      style="padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 6px; cursor: pointer;">
+      Add User
+    </button>
+  </div>
+</form>

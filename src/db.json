@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Alice Johnson",
       "email": "alice.johnson@example.com",
       "username": "alicej",
@@ -9,7 +9,7 @@
       "role": "admin"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Bob Smith",
       "email": "bob.smith@example.com",
       "username": "bobsmith",
@@ -17,12 +17,11 @@
       "role": "user"
     },
     {
-      "id": 3,
-      "name": "Charlie Lee",
+      "name": "Charlie Leett",
       "email": "charlie.lee@example.com",
       "username": "charliel",
-      "password": "charlie789",
-      "role": "moderator"
+      "role": "moderator",
+      "id": "3"
     },
     {
       "id": "cc21",
@@ -71,22 +70,52 @@
       "username": "bobsmith",
       "password": "bobpass456",
       "role": "user"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "title": "Introduction to JavaScript",
+      "content": "JavaScript is a versatile programming language used for web development.",
+      "authorId": 1,
+      "createdAt": "2023-10-01T12:00:00Z"
     },
     {
-      "id": "3a3e",
-      "name": "abhi Smith",
-      "email": "bob.smith@example.com",
-      "username": "bobsmith",
-      "password": "bobpass456",
-      "role": "user"
+      "id": "2",
+      "title": "Understanding CSS Flexbox",
+      "content": "CSS Flexbox is a layout model that allows responsive design.",
+      "authorId": 2,
+      "createdAt": "2023-10-02T14:30:00Z"
     },
     {
-      "id": "2d3c",
-      "name": "abhi Smith",
-      "email": "bob.smith@example.com",
-      "username": "bobsmith",
-      "password": "bobpass456",
-      "role": "user"
+      "id": "3",
+      "title": "Getting Started with React",
+      "content": "React is a JavaScript library for building user interfaces.",
+      "authorId": 3,
+      "createdAt": "2023-10-03T09:15:00Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "postId": 1,
+      "authorId": 2,
+      "content": "Great introduction to JavaScript!",
+      "createdAt": "2023-10-01T12:30:00Z"
+    },
+    {
+      "id": "2",
+      "postId": 2,
+      "authorId": 1,
+      "content": "Flexbox is indeed powerful for responsive design.",
+      "createdAt": "2023-10-02T15:00:00Z"
+    },
+    {
+      "id": "3",
+      "postId": 3,
+      "authorId": 2,
+      "content": "React makes building UIs so much easier.",
+      "createdAt": "2023-10-03T09:45:00Z"
     }
   ]
 }
